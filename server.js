@@ -134,7 +134,7 @@ class Server {
         });
 
         // Global error handler
-        this.app.use(errorHandler);
+        this.app.use(errorHandler.handle);
     }
 
     async start() {
