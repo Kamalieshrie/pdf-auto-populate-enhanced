@@ -9,9 +9,9 @@ const templateController = require('../controllers/template-controller');
 const fieldController = require('../controllers/field-controller');
 
 // Import models for direct queries
-const Template = require('../models/Template');
-const Project = require('../models/Project');
-const Field = require('../models/Field');
+const Template = require('../models/templates');
+const Project = require('../models/project');
+const Field = require('../models/field');
 
 // Apply rate limiting to all API routes
 router.use(validation.validateRateLimit(15 * 60 * 1000, 1000)); // 1000 requests per 15 minutes

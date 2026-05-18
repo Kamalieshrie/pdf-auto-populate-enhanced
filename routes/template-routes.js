@@ -14,9 +14,9 @@ const templateController = require('../controllers/template-controller');
 const pdfController = require('../controllers/pdf-controller');
 
 // Models
-const Template = require('../models/Template');
-const Field = require('../models/Field');
-const Project = require('../models/Project');
+const Template = require('../models/templates');
+const Field = require('../models/field');
+const Project = require('../models/project');
 
 // Apply rate limiting and sanitization
 router.use(validation.validateRateLimit(15 * 60 * 1000, 300)); // 300 requests per 15 minutes
