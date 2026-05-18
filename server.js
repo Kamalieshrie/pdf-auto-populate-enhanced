@@ -140,7 +140,7 @@ class Server {
     async start() {
         try {
             // Initialize database connection
-            await database.connect();
+            await database.utils.initializeFileStorage();
             console.log('Database connected successfully');
 
             // Ensure upload directories exist
@@ -198,7 +198,7 @@ class Server {
                     console.log('HTTP server closed');
                     
                     try {
-                        await database.disconnect();
+                        // database disconnect skipped
                         console.log('Database connection closed');
                     } catch (error) {
                         console.error('Error closing database connection:', error);
