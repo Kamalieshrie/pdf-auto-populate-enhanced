@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Auto-Populate Enhanced</title>
+    
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/drag-drop.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/themes.css">
+    
+    <!-- External Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/signature_pad/4.1.7/signature_pad.umd.min.js"></script>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/icons/logo.png">
+</head>
+<body class="theme-light">
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay">
+        <div class="loading-spinner">
+            <img src="assets/images/loading-spinner.svg" alt="Loading...">
+            <p>Loading PDF Editor...</p>
+        </div>
+    </div>
+
+    <!-- Top Navigation Bar -->
+    <nav class="top-nav">
+        <div class="nav-brand">
+            <img src="assets/icons/logo.png" alt="Logo" class="brand-logo">
+            <span class="brand-name">PDF Auto-Populate</span>
+        </div>
+        
+        <div class="nav-actions">
+            <button class="btn btn-secondary" id="new-project-btn">
+                <i class="icon-plus"></i> New Project
+            </button>
+            <button class="btn btn-primary" id="save-template-btn">
+                <i class="icon-save"></i> Save Template
+            </button>
+            <button class="btn btn-success" id="generate-pdf-btn">
+                <i class="icon-download"></i> Generate PDF
+            </button>
+            
+            <div class="nav-divider"></div>
+            
+            <button class="btn btn-ghost" id="theme-toggle-btn" title="Toggle Theme">
+                <i class="icon-moon"></i>
+            </button>
+            <button class="btn btn-ghost" id="fullscreen-btn" title="Toggle Fullscreen">
+                <i class="icon-maximize"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Application Layout -->
+    <div class="app-layout">
+        <!-- Left Sidebar - Field Palette -->
+        <aside class="sidebar sidebar-left">
+            <div class="sidebar-header">
+                <h3>Field Palette</h3>
+                <button class="btn btn-ghost btn-sm" id="collapse-fields-btn">
+                    <i class="icon-chevron-left"></i>
+                </button>
+            </div>
+            
+            <div class="sidebar-content">
+                <!-- Field Categories -->
+                <div class="field-categories">
+                    <div class="category-section active" data-category="basic">
+                        <div class="category-header">
+                            <i class="icon-type"></i>
+                            <span>Basic Fields</span>
+                            <i class="icon-chevron-down category-toggle"></i>
+                        </div>
+                        <div class="category-content">
+                            <div class="field-palette-item" data-field-type="text" draggable="true">
+                                <div class="field-icon">
+                                    <i class="icon-type"></i>
+                                </div>
+                                <div class="field-info">
+                                    <span class="field-name">Text Field</span>
+                                    <span class="field-desc">Single line input</span>
+                                </div>
+                            </div>
+                            
+                            <div class="field-palette-item" data-field-type="textarea" draggable="true">
+                                <div class="field-icon">
+                                    <i class="icon-file-text"></i>
+                                </div>
+                                <div class="field-info">
+                                    <span class="field-name">Text Area</span>
+                                    <span class="field-desc">Multi-line input</span>
+                                </div>
+                            </div>
+                            
+                            <div class="field-palette-item" data-field-type="date" draggable="true">
+                                <div class="field-icon">
+                                    <i class="icon-calendar"></i>
+                                </div>
+                                <div class="field-info">
+                                    <span class="field-name">Date Field</span>
+                                    <span class="field-desc">Date picker</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="category-section" data-category="choice">
+                        <div class="category-header">
+                            <i class="icon-check-square"></i>
+                            <span>Choice Fields</span>
+                            <i class="icon-chevron-down category-toggle"></i>
+                        </div>
+                        <div class="category-content">
+                            <div class="field-palette-item" data-field-type="checkbox" draggable="true">
+                                <div class="field-icon">
+                                    <i class="icon-check-square"></i>
+                                </div>
+                                <div class="field-info">
+                                    <span class="field-name">Checkbox</span>
+                                    <span class="field-desc">Yes/No selection</span>
+                                </div>
+                            </div>
+                            
+                            <div class="field-palette-item" data-field-type="radio" draggable="true">
+                                <div class="field-icon">
+                                    <i class="icon-radio"></i>
+                                </div>
+                                <div class="field-info">
+                                    <span class="field-name">Radio Button</span>
+                                    <span class="field-desc">Single choice</span>
+                                </div>
+                            </div>
+                            
+                            <div class="field-palette-item" data-field-type="dropdown" draggable="true">
+                                <div class="field-icon">
+                                    <i class="icon-chevron-down"></i>
+                                </div>
+                                <div class="field-info">
+                                    <span class="field-name">Dropdown</span>
+                                    <span class="field-desc">Select list</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="category-section" data-category="signature">
+                        <div class="category-header">
+                            <i class="icon-edit"></i>
+                            <span>Signature Fields</span>
+                            <i class="icon-chevron-down category-toggle"></i>
+                        </div>
+                        <div class="category-content">
+                            <div class="field-palette-item" data-field-type="signature" draggable="true">
+                                <div class="field-icon">
+                                    <i class="icon-edit"></i>
+                                </div>
+                                <div class="field-info">
+                                    <span class="field-name">Signature</span>
+                                    <span class="field-desc">Digital signature</span>
+                                </div>
+                            </div>
+                            
+                            <div class="field-palette-item" data-field-type="initial" draggable="true">
+                                <div class="field-icon">
+                                    <i class="icon-user"></i>
+                                </div>
+                                <div class="field-info">
+                                    <span class="field-name">Initial</span>
+                                    <span class="field-desc">User initials</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Template Manager -->
+                <div class="template-manager">
+                    <div class="section-header">
+                        <h4>Templates</h4>
+                        <button class="btn btn-ghost btn-xs" id="add-template-btn">
+                            <i class="icon-plus"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="template-list">
+                        <div class="template-item active" data-template="default">
+                            <i class="icon-file"></i>
+                            <span>Default Template</span>
+                            <div class="template-actions">
+                                <button class="btn btn-ghost btn-xs" title="Edit">
+                                    <i class="icon-edit-2"></i>
+                                </button>
+                                <button class="btn btn-ghost btn-xs" title="Delete">
+                                    <i class="icon-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Toolbar -->
+            <div class="toolbar">
+                <div class="toolbar-section">
+                    <button class="btn btn-secondary" id="upload-pdf-btn">
+                        <i class="icon-upload"></i> Upload PDF
+                    </button>
+                    <input type="file" id="pdf-file-input" accept=".pdf" style="display: none;">
+                </div>
+                
+                <div class="toolbar-section">
+                    <div class="zoom-controls">
+                        <button class="btn btn-ghost btn-sm" id="zoom-out-btn">
+                            <i class="icon-minus"></i>
+                        </button>
+                        <span class="zoom-level">100%</span>
+                        <button class="btn btn-ghost btn-sm" id="zoom-in-btn">
+                            <i class="icon-plus"></i>
+                        </button>
+                        <button class="btn btn-ghost btn-sm" id="fit-to-width-btn">
+                            <i class="icon-maximize"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="toolbar-section">
+                    <button class="btn btn-ghost btn-sm" id="grid-toggle-btn" title="Toggle Grid">
+                        <i class="icon-grid"></i>
+                    </button>
+                    <button class="btn btn-ghost btn-sm" id="snap-toggle-btn" title="Toggle Snap">
+                        <i class="icon-magnet"></i>
+                    </button>
+                    <button class="btn btn-ghost btn-sm" id="ruler-toggle-btn" title="Toggle Rulers">
+                        <i class="icon-ruler"></i>
+                    </button>
+                </div>
+                
+                <div class="toolbar-section">
+                    <div class="page-navigation">
+                        <button class="btn btn-ghost btn-sm" id="prev-page-btn" disabled>
+                            <i class="icon-chevron-left"></i>
+                        </button>
+                        <span class="page-info">
+                            <span class="current-page">1</span> / <span class="total-pages">1</span>
+                        </span>
+                        <button class="btn btn-ghost btn-sm" id="next-page-btn" disabled>
+                            <i class="icon-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PDF Canvas Container -->
+            <div class="canvas-container">
+                <div class="canvas-wrapper">
+                    <!-- Rulers -->
+                    <div class="ruler ruler-horizontal" id="horizontal-ruler"></div>
+                    <div class="ruler ruler-vertical" id="vertical-ruler"></div>
+                    <div class="ruler-corner"></div>
+                    
+                    <!-- PDF Canvas -->
+                    <div class="pdf-canvas" id="pdf-canvas">
+                        <div class="canvas-placeholder">
+                            <div class="placeholder-content">
+                                <img src="assets/images/placeholder-pdf.png" alt="Upload PDF">
+                                <h3>Upload a PDF to get started</h3>
+                                <p>Drag and drop a PDF file here or click the upload button</p>
+                                <button class="btn btn-primary" onclick="document.getElementById('pdf-file-input').click()">
+                                    <i class="icon-upload"></i> Choose PDF File
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Drop Zone -->
+                        <div class="drop-zone" id="drop-zone"></div>
+                        
+                        <!-- Snap Grid -->
+                        <div class="snap-grid" id="snap-grid"></div>
+                        
+                        <!-- Selection Box -->
+                        <div class="selection-box" id="selection-box"></div>
+                        
+                        <!-- Alignment Guides -->
+                        <div class="alignment-guides">
+                            <div class="alignment-guide horizontal" id="h-guide"></div>
+                            <div class="alignment-guide vertical" id="v-guide"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Right Sidebar - Properties Panel -->
+        <aside class="sidebar sidebar-right">
+            <div class="sidebar-header">
+                <h3>Properties</h3>
+                <button class="btn btn-ghost btn-sm" id="collapse-props-btn">
+                    <i class="icon-chevron-right"></i>
+                </button>
+            </div>
+            
+            <div class="sidebar-content">
+                <!-- Field Properties -->
+                <div class="property-section" id="field-properties" style="display: none;">
+                    <div class="property-group">
+                        <label class="property-label">Field Name</label>
+                        <input type="text" class="property-input" id="field-name-input" placeholder="Enter field name">
+                    </div>
+                    
+                    <div class="property-group">
+                        <label class="property-label">Field Type</label>
+                        <select class="property-select" id="field-type-select">
+                            <option value="text">Text</option>
+                            <option value="textarea">Text Area</option>
+                            <option value="date">Date</option>
+                            <option value="checkbox">Checkbox</option>
+                            <option value="radio">Radio</option>
+                            <option value="dropdown">Dropdown</option>
+                            <option value="signature">Signature</option>
+                            <option value="initial">Initial</option>
+                        </select>
+                    </div>
+                    
+                    <div class="property-group">
+                        <label class="property-label">Position</label>
+                        <div class="property-row">
+                            <div class="property-col">
+                                <label class="property-sublabel">X</label>
+                                <input type="number" class="property-input" id="field-x-input">
+                            </div>
+                            <div class="property-col">
+                                <label class="property-sublabel">Y</label>
+                                <input type="number" class="property-input" id="field-y-input">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="property-group">
+                        <label class="property-label">Size</label>
+                        <div class="property-row">
+                            <div class="property-col">
+                                <label class="property-sublabel">W</label>
+                                <input type="number" class="property-input" id="field-width-input">
+                            </div>
+                            <div class="property-col">
+                                <label class="property-sublabel">H</label>
+                                <input type="number" class="property-input" id="field-height-input">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="property-group">
+                        <label class="property-label">Default Value</label>
+                        <input type="text" class="property-input" id="field-default-input" placeholder="Default value">
+                    </div>
+                    
+                    <div class="property-group">
+                        <label class="property-checkbox">
+                            <input type="checkbox" id="field-required-checkbox">
+                            <span class="checkmark"></span>
+                            Required Field
+                        </label>
+                    </div>
+                    
+                    <div class="property-group">
+                        <label class="property-checkbox">
+                            <input type="checkbox" id="field-readonly-checkbox">
+                            <span class="checkmark"></span>
+                            Read Only
+                        </label>
+                    </div>
+                    
+                    <!-- Field Type Specific Properties -->
+                    <div class="property-group" id="dropdown-options" style="display: none;">
+                        <label class="property-label">Options</label>
+                        <div class="options-list">
+                            <div class="option-item">
+                                <input type="text" class="option-input" placeholder="Option 1">
+                                <button class="btn btn-ghost btn-xs" onclick="this.parentElement.remove()">
+                                    <i class="icon-x"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <button class="btn btn-secondary btn-sm" id="add-option-btn">
+                            <i class="icon-plus"></i> Add Option
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Data Mapping -->
+                <div class="property-section">
+                    <div class="section-header">
+                        <h4>Data Mapping</h4>
+                        <button class="btn btn-ghost btn-xs" id="import-data-btn">
+                            <i class="icon-database"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="data-mapping">
+                        <div class="property-group">
+                            <label class="property-label">Data Source</label>
+                            <select class="property-select" id="data-source-select">
+                                <option value="">Select data source...</option>
+                                <option value="json">JSON Data</option>
+                                <option value="csv">CSV File</option>
+                                <option value="api">API Endpoint</option>
+                            </select>
+                        </div>
+                        
+                        <div class="property-group" id="json-data-group" style="display: none;">
+                            <label class="property-label">JSON Data</label>
+                            <textarea class="property-textarea" id="json-data-input" rows="6" placeholder='{"name": "John Doe", "date": "2024-01-01"}'></textarea>
+                        </div>
+                        
+                        <div class="data-preview" id="data-preview">
+                            <div class="preview-header">
+                                <span>Data Preview</span>
+                                <button class="btn btn-ghost btn-xs" id="refresh-preview-btn">
+                                    <i class="icon-refresh"></i>
+                                </button>
+                            </div>
+                            <div class="preview-content">
+                                <p class="text-muted">No data loaded</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- PDF Info -->
+                <div class="property-section">
+                    <div class="section-header">
+                        <h4>PDF Information</h4>
+                    </div>
+                    
+                    <div class="pdf-info">
+                        <div class="info-item">
+                            <span class="info-label">File Name:</span>
+                            <span class="info-value" id="pdf-filename">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Pages:</span>
+                            <span class="info-value" id="pdf-pages">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Size:</span>
+                            <span class="info-value" id="pdf-size">-</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Fields:</span>
+                            <span class="info-value" id="field-count">0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Context Menu -->
+    <div class="context-menu" id="context-menu" style="display: none;">
+        <div class="context-menu-item" data-action="copy">
+            <i class="icon-copy"></i>
+            <span>Copy</span>
+        </div>
+        <div class="context-menu-item" data-action="paste">
+            <i class="icon-paste"></i>
+            <span>Paste</span>
+        </div>
+        <div class="context-menu-divider"></div>
+        <div class="context-menu-item" data-action="duplicate">
+            <i class="icon-duplicate"></i>
+            <span>Duplicate</span>
+        </div>
+        <div class="context-menu-item" data-action="delete">
+            <i class="icon-trash"></i>
+            <span>Delete</span>
+        </div>
+        <div class="context-menu-divider"></div>
+        <div class="context-menu-item" data-action="bring-front">
+            <i class="icon-layers"></i>
+            <span>Bring to Front</span>
+        </div>
+        <div class="context-menu-item" data-action="send-back">
+            <i class="icon-layers"></i>
+            <span>Send to Back</span>
+        </div>
+    </div>
+
+    <!-- Signature Modal -->
+    <div class="modal" id="signature-modal">
+        <div class="modal-content modal-lg">
+            <div class="modal-header">
+                <h3>Digital Signature</h3>
+                <button class="modal-close" id="close-signature-modal">
+                    <i class="icon-x"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="signature-tabs">
+                    <button class="signature-tab active" data-tab="draw">Draw</button>
+                    <button class="signature-tab" data-tab="type">Type</button>
+                    <button class="signature-tab" data-tab="upload">Upload</button>
+                </div>
+                
+                <div class="signature-content">
+                    <div class="signature-panel active" data-panel="draw">
+                        <div class="signature-canvas-container">
+                            <canvas id="signature-canvas" width="500" height="200"></canvas>
+                        </div>
+                        <div class="signature-controls">
+                            <button class="btn btn-secondary" id="clear-signature-btn">Clear</button>
+                            <div class="color-picker">
+                                <input type="color" id="signature-color" value="#000000">
+                                <label for="signature-color">Color</label>
+                            </div>
+                            <div class="stroke-width">
+                                <input type="range" id="signature-stroke" min="1" max="5" value="2">
+                                <label for="signature-stroke">Thickness</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="signature-panel" data-panel="type">
+                        <input type="text" class="signature-text-input" id="signature-text" placeholder="Type your signature">
+                        <div class="font-options">
+                            <select class="signature-font" id="signature-font">
+                                <option value="Brush Script MT">Brush Script MT</option>
+                                <option value="Lucida Handwriting">Lucida Handwriting</option>
+                                <option value="Dancing Script">Dancing Script</option>
+                                <option value="Pacifico">Pacifico</option>
+                            </select>
+                            <input type="range" id="signature-size" min="20" max="60" value="40">
+                        </div>
+                    </div>
+                    
+                    <div class="signature-panel" data-panel="upload">
+                        <div class="signature-upload">
+                            <input type="file" id="signature-file" accept="image/*">
+                            <div class="upload-area">
+                                <i class="icon-upload"></i>
+                                <p>Click to upload or drag signature image here</p>
+                                <small>Supports PNG, JPG, SVG</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="cancel-signature-btn">Cancel</button>
+                <button class="btn btn-primary" id="save-signature-btn">Save Signature</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <!-- JavaScript Files -->
+    <script src="js/utils/dom-utils.js"></script>
+    <script src="js/utils/field-utils.js"></script>
+    <script src="js/utils/pdf-utils.js"></script>
+    <script src="js/utils/event-utils.js"></script>
+    
+    <script src="js/services/api-service.js"></script>
+    <script src="js/services/drag-drop-service.js"></script>
+    <script src="js/services/pdf-service.js"></script>
+    <script src="js/services/validation-service.js"></script>
+    
+    <script src="js/components/field-palette.js"></script>
+    <script src="js/components/pdf-canvas.js"></script>
+    <script src="js/components/property-panel.js"></script>
+    <script src="js/components/signature-pad.js"></script>
+    <script src="js/components/template-manager.js"></script>
+    
+    <script src="js/main.js"></script>
+</body>
+</html>

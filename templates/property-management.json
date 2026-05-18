@@ -1,0 +1,453 @@
+{
+  "version": "1.0",
+  "templateName": "Property Management Forms",
+  "description": "Comprehensive property management document templates",
+  "lastUpdated": "2024-01-15",
+  "templates": {
+    "leaseAgreement": {
+      "id": "lease-agreement-v2",
+      "name": "Residential Lease Agreement",
+      "description": "Standard residential lease agreement template",
+      "category": "contracts",
+      "pdfTemplate": "lease-agreement-template.pdf",
+      "fields": {
+        "landlord": {
+          "landlordName": {
+            "pdfFieldName": "landlord_name",
+            "type": "text",
+            "required": true,
+            "coordinates": { "x": 120, "y": 150, "width": 200, "height": 20 }
+          },
+          "landlordAddress": {
+            "pdfFieldName": "landlord_address",
+            "type": "textarea",
+            "required": true,
+            "coordinates": { "x": 120, "y": 180, "width": 300, "height": 60 }
+          },
+          "landlordPhone": {
+            "pdfFieldName": "landlord_phone",
+            "type": "tel",
+            "required": true,
+            "coordinates": { "x": 450, "y": 150, "width": 150, "height": 20 }
+          }
+        },
+        "tenant": {
+          "tenantName": {
+            "pdfFieldName": "tenant_name",
+            "type": "text",
+            "required": true,
+            "coordinates": { "x": 120, "y": 280, "width": 200, "height": 20 }
+          },
+          "tenantAddress": {
+            "pdfFieldName": "tenant_address",
+            "type": "textarea",
+            "required": false,
+            "coordinates": { "x": 120, "y": 310, "width": 300, "height": 60 }
+          },
+          "tenantPhone": {
+            "pdfFieldName": "tenant_phone",
+            "type": "tel",
+            "required": true,
+            "coordinates": { "x": 450, "y": 280, "width": 150, "height": 20 }
+          },
+          "tenantEmail": {
+            "pdfFieldName": "tenant_email",
+            "type": "email",
+            "required": true,
+            "coordinates": { "x": 450, "y": 310, "width": 150, "height": 20 }
+          }
+        },
+        "property": {
+          "propertyAddress": {
+            "pdfFieldName": "property_address",
+            "type": "textarea",
+            "required": true,
+            "coordinates": { "x": 120, "y": 420, "width": 400, "height": 60 }
+          },
+          "unitNumber": {
+            "pdfFieldName": "unit_number",
+            "type": "text",
+            "required": false,
+            "coordinates": { "x": 530, "y": 420, "width": 70, "height": 20 }
+          },
+          "propertyType": {
+            "pdfFieldName": "property_type",
+            "type": "select",
+            "required": true,
+            "options": ["Apartment", "House", "Condo", "Townhouse", "Studio"],
+            "coordinates": { "x": 120, "y": 500, "width": 150, "height": 20 }
+          },
+          "bedrooms": {
+            "pdfFieldName": "bedrooms",
+            "type": "number",
+            "required": true,
+            "coordinates": { "x": 300, "y": 500, "width": 50, "height": 20 }
+          },
+          "bathrooms": {
+            "pdfFieldName": "bathrooms",
+            "type": "number",
+            "required": true,
+            "coordinates": { "x": 380, "y": 500, "width": 50, "height": 20 }
+          }
+        },
+        "lease": {
+          "leaseStartDate": {
+            "pdfFieldName": "lease_start_date",
+            "type": "date",
+            "required": true,
+            "coordinates": { "x": 120, "y": 580, "width": 120, "height": 20 }
+          },
+          "leaseEndDate": {
+            "pdfFieldName": "lease_end_date",
+            "type": "date",
+            "required": true,
+            "coordinates": { "x": 260, "y": 580, "width": 120, "height": 20 }
+          },
+          "monthlyRent": {
+            "pdfFieldName": "monthly_rent",
+            "type": "currency",
+            "required": true,
+            "coordinates": { "x": 400, "y": 580, "width": 100, "height": 20 }
+          },
+          "securityDeposit": {
+            "pdfFieldName": "security_deposit",
+            "type": "currency",
+            "required": true,
+            "coordinates": { "x": 520, "y": 580, "width": 100, "height": 20 }
+          },
+          "petDeposit": {
+            "pdfFieldName": "pet_deposit",
+            "type": "currency",
+            "required": false,
+            "coordinates": { "x": 400, "y": 610, "width": 100, "height": 20 }
+          },
+          "lateFeesPolicy": {
+            "pdfFieldName": "late_fees_policy",
+            "type": "textarea",
+            "required": false,
+            "coordinates": { "x": 120, "y": 650, "width": 480, "height": 40 }
+          }
+        },
+        "signatures": {
+          "landlordSignature": {
+            "pdfFieldName": "landlord_signature",
+            "type": "signature",
+            "required": true,
+            "coordinates": { "x": 120, "y": 750, "width": 200, "height": 50 }
+          },
+          "landlordSignatureDate": {
+            "pdfFieldName": "landlord_signature_date",
+            "type": "date",
+            "required": true,
+            "coordinates": { "x": 120, "y": 810, "width": 120, "height": 20 }
+          },
+          "tenantSignature": {
+            "pdfFieldName": "tenant_signature",
+            "type": "signature",
+            "required": true,
+            "coordinates": { "x": 400, "y": 750, "width": 200, "height": 50 }
+          },
+          "tenantSignatureDate": {
+            "pdfFieldName": "tenant_signature_date",
+            "type": "date",
+            "required": true,
+            "coordinates": { "x": 400, "y": 810, "width": 120, "height": 20 }
+          }
+        }
+      }
+    },
+    "propertyInspection": {
+      "id": "property-inspection-v1",
+      "name": "Property Inspection Report",
+      "description": "Detailed property condition assessment form",
+      "category": "inspections",
+      "pdfTemplate": "property-inspection-template.pdf",
+      "fields": {
+        "inspection": {
+          "inspectionDate": {
+            "pdfFieldName": "inspection_date",
+            "type": "date",
+            "required": true,
+            "coordinates": { "x": 120, "y": 100, "width": 120, "height": 20 }
+          },
+          "inspectorName": {
+            "pdfFieldName": "inspector_name",
+            "type": "text",
+            "required": true,
+            "coordinates": { "x": 260, "y": 100, "width": 200, "height": 20 }
+          },
+          "inspectionType": {
+            "pdfFieldName": "inspection_type",
+            "type": "select",
+            "required": true,
+            "options": ["Move-in", "Move-out", "Annual", "Maintenance", "Emergency"],
+            "coordinates": { "x": 480, "y": 100, "width": 120, "height": 20 }
+          }
+        },
+        "rooms": {
+          "livingRoom": {
+            "condition": {
+              "pdfFieldName": "living_room_condition",
+              "type": "select",
+              "required": true,
+              "options": ["Excellent", "Good", "Fair", "Poor", "Damaged"],
+              "coordinates": { "x": 200, "y": 180, "width": 100, "height": 20 }
+            },
+            "notes": {
+              "pdfFieldName": "living_room_notes",
+              "type": "textarea",
+              "required": false,
+              "coordinates": { "x": 320, "y": 180, "width": 280, "height": 40 }
+            }
+          },
+          "kitchen": {
+            "condition": {
+              "pdfFieldName": "kitchen_condition",
+              "type": "select",
+              "required": true,
+              "options": ["Excellent", "Good", "Fair", "Poor", "Damaged"],
+              "coordinates": { "x": 200, "y": 240, "width": 100, "height": 20 }
+            },
+            "appliancesWorking": {
+              "pdfFieldName": "kitchen_appliances_working",
+              "type": "checkbox",
+              "required": false,
+              "coordinates": { "x": 320, "y": 240, "width": 15, "height": 15 }
+            },
+            "notes": {
+              "pdfFieldName": "kitchen_notes",
+              "type": "textarea",
+              "required": false,
+              "coordinates": { "x": 350, "y": 240, "width": 250, "height": 40 }
+            }
+          },
+          "bathrooms": {
+            "condition": {
+              "pdfFieldName": "bathroom_condition",
+              "type": "select",
+              "required": true,
+              "options": ["Excellent", "Good", "Fair", "Poor", "Damaged"],
+              "coordinates": { "x": 200, "y": 300, "width": 100, "height": 20 }
+            },
+            "plumbingWorking": {
+              "pdfFieldName": "bathroom_plumbing_working",
+              "type": "checkbox",
+              "required": false,
+              "coordinates": { "x": 320, "y": 300, "width": 15, "height": 15 }
+            },
+            "notes": {
+              "pdfFieldName": "bathroom_notes",
+              "type": "textarea",
+              "required": false,
+              "coordinates": { "x": 350, "y": 300, "width": 250, "height": 40 }
+            }
+          }
+        },
+        "utilities": {
+          "electricalWorking": {
+            "pdfFieldName": "electrical_working",
+            "type": "checkbox",
+            "required": false,
+            "coordinates": { "x": 150, "y": 400, "width": 15, "height": 15 }
+          },
+          "heatingWorking": {
+            "pdfFieldName": "heating_working",
+            "type": "checkbox",
+            "required": false,
+            "coordinates": { "x": 250, "y": 400, "width": 15, "height": 15 }
+          },
+          "airConditioningWorking": {
+            "pdfFieldName": "ac_working",
+            "type": "checkbox",
+            "required": false,
+            "coordinates": { "x": 350, "y": 400, "width": 15, "height": 15 }
+          },
+          "utilityNotes": {
+            "pdfFieldName": "utility_notes",
+            "type": "textarea",
+            "required": false,
+            "coordinates": { "x": 120, "y": 430, "width": 480, "height": 60 }
+          }
+        },
+        "overall": {
+          "overallCondition": {
+            "pdfFieldName": "overall_condition",
+            "type": "select",
+            "required": true,
+            "options": ["Excellent", "Good", "Fair", "Poor", "Unacceptable"],
+            "coordinates": { "x": 200, "y": 520, "width": 150, "height": 20 }
+          },
+          "recommendedActions": {
+            "pdfFieldName": "recommended_actions",
+            "type": "textarea",
+            "required": false,
+            "coordinates": { "x": 120, "y": 560, "width": 480, "height": 80 }
+          },
+          "estimatedRepairCost": {
+            "pdfFieldName": "estimated_repair_cost",
+            "type": "currency",
+            "required": false,
+            "coordinates": { "x": 400, "y": 520, "width": 120, "height": 20 }
+          }
+        }
+      }
+    },
+    "maintenanceRequest": {
+      "id": "maintenance-request-v1",
+      "name": "Maintenance Request Form",
+      "description": "Tenant maintenance request submission form",
+      "category": "maintenance",
+      "pdfTemplate": "maintenance-request-template.pdf",
+      "fields": {
+        "request": {
+          "requestDate": {
+            "pdfFieldName": "request_date",
+            "type": "date",
+            "required": true,
+            "coordinates": { "x": 120, "y": 100, "width": 120, "height": 20 }
+          },
+          "priority": {
+            "pdfFieldName": "priority",
+            "type": "select",
+            "required": true,
+            "options": ["Emergency", "Urgent", "Normal", "Low"],
+            "coordinates": { "x": 260, "y": 100, "width": 100, "height": 20 }
+          },
+          "category": {
+            "pdfFieldName": "category",
+            "type": "select",
+            "required": true,
+            "options": ["Plumbing", "Electrical", "HVAC", "Appliances", "Structural", "Other"],
+            "coordinates": { "x": 380, "y": 100, "width": 120, "height": 20 }
+          }
+        },
+        "description": {
+          "problemDescription": {
+            "pdfFieldName": "problem_description",
+            "type": "textarea",
+            "required": true,
+            "coordinates": { "x": 120, "y": 150, "width": 480, "height": 100 }
+          },
+          "locationInUnit": {
+            "pdfFieldName": "location_in_unit",
+            "type": "text",
+            "required": true,
+            "coordinates": { "x": 120, "y": 270, "width": 200, "height": 20 }
+          },
+          "accessInstructions": {
+            "pdfFieldName": "access_instructions",
+            "type": "textarea",
+            "required": false,
+            "coordinates": { "x": 340, "y": 270, "width": 260, "height": 60 }
+          }
+        },
+        "tenantInfo": {
+          "bestContactTime": {
+            "pdfFieldName": "best_contact_time",
+            "type": "text",
+            "required": false,
+            "coordinates": { "x": 200, "y": 350, "width": 150, "height": 20 }
+          },
+          "alternatePhone": {
+            "pdfFieldName": "alternate_phone",
+            "type": "tel",
+            "required": false,
+            "coordinates": { "x": 370, "y": 350, "width": 150, "height": 20 }
+          },
+          "permissionToEnter": {
+            "pdfFieldName": "permission_to_enter",
+            "type": "checkbox",
+            "required": false,
+            "coordinates": { "x": 120, "y": 380, "width": 15, "height": 15 }
+          }
+        }
+      }
+    }
+  },
+  "formCategories": [
+    {
+      "id": "contracts",
+      "name": "Contracts & Agreements",
+      "description": "Legal documents and agreements",
+      "icon": "fileText",
+      "color": "#3B82F6"
+    },
+    {
+      "id": "inspections",
+      "name": "Inspections & Reports",
+      "description": "Property condition assessments",
+      "icon": "search",
+      "color": "#10B981"
+    },
+    {
+      "id": "maintenance",
+      "name": "Maintenance & Repairs",
+      "description": "Service requests and work orders",
+      "icon": "tool",
+      "color": "#F59E0B"
+    },
+    {
+      "id": "financial",
+      "name": "Financial Documents",
+      "description": "Rent, deposits, and payments",
+      "icon": "dollarSign",
+      "color": "#8B5CF6"
+    }
+  ],
+  "workflows": {
+    "newTenant": {
+      "name": "New Tenant Onboarding",
+      "description": "Complete workflow for new tenant setup",
+      "steps": [
+        {
+          "step": 1,
+          "name": "Application Review",
+          "forms": ["tenant-application"],
+          "required": true
+        },
+        {
+          "step": 2,
+          "name": "Lease Agreement",
+          "forms": ["lease-agreement"],
+          "required": true
+        },
+        {
+          "step": 3,
+          "name": "Move-in Inspection",
+          "forms": ["property-inspection"],
+          "required": true
+        },
+        {
+          "step": 4,
+          "name": "Key Handover",
+          "forms": ["key-receipt"],
+          "required": true
+        }
+      ]
+    },
+    "maintenance": {
+      "name": "Maintenance Request Process",
+      "description": "From request to completion workflow",
+      "steps": [
+        {
+          "step": 1,
+          "name": "Request Submission",
+          "forms": ["maintenance-request"],
+          "required": true
+        },
+        {
+          "step": 2,
+          "name": "Work Order Creation",
+          "forms": ["work-order"],
+          "required": true
+        },
+        {
+          "step": 3,
+          "name": "Completion Report",
+          "forms": ["work-completion"],
+          "required": true
+        }
+      ]
+    }
+  }
+}

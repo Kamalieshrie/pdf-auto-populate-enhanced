@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Placeholder PDF Generator</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+        }
+        
+        .form-section {
+            margin-bottom: 30px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #3B82F6;
+        }
+        
+        .form-section h3 {
+            color: #3B82F6;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .form-field {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #555;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e1e5e9;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #3B82F6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
+        .generate-btn {
+            background: linear-gradient(45deg, #3B82F6, #1E40AF);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            display: block;
+            margin: 30px auto;
+            min-width: 200px;
+        }
+        
+        .generate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+        }
+        
+        .preview-section {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f1f5f9;
+            border-radius: 10px;
+        }
+        
+        .preview-section h3 {
+            color: #334155;
+            margin-bottom: 15px;
+        }
+        
+        .form-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .form-type-btn {
+            background: white;
+            border: 2px solid #e2e8f0;
+            padding: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .form-type-btn:hover,
+        .form-type-btn.active {
+            border-color: #3B82F6;
+            background: #eff6ff;
+            color: #3B82F6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📄 Placeholder PDF Generator</h1>
+        
+        <div class="preview-section">
+            <h3>Select Form Type</h3>
+            <div class="form-types">
+                <div class="form-type-btn active" onclick="selectFormType('employment')">
+                    💼 Employment Application
+                </div>
+                <div class="form-type-btn" onclick="selectFormType('contact')">
+                    📞 Contact Form
+                </div>
+                <div class="form-type-btn" onclick="selectFormType('survey')">
+                    📊 Survey Form
+                </div>
+                <div class="form-type-btn" onclick="selectFormType('invoice')">
+                    🧾 Invoice Template
+                </div>
+            </div>
+        </div>
+        
+        <div id="employmentForm" class="form-content">
+            <div class="form-section">
+                <h3>Personal Information</h3>
+                <div class="form-row">
+                    <div class="form-field">
+                        <label for="firstName">First Name</label>
+                        <input type="text" id="firstName" placeholder="John">
+                    </div>
+                    <div class="form-field">
+                        <label for="lastName">Last Name</label>
+                        <input type="text" id="lastName" placeholder="Doe">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-field">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" placeholder="john.doe@email.com">
+                    </div>
+                    <div class="form-field">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" placeholder="+1 (555) 123-4567">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-field">
+                        <label for="address">Address</label>
+                        <textarea id="address" rows="3" placeholder="123 Main Street, City, State, ZIP"></textarea>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <h3>Employment Details</h3>
+                <div class="form-row">
+                    <div class="form-field">
+                        <label for="position">Desired Position</label>
+                        <input type="text" id="position" placeholder="Software Developer">
+                    </div>
+                    <div class="form-field">
+                        <label for="salary">Expected Salary</label>
+                        <input type="text" id="salary" placeholder="$75,000">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-field">
+                        <label for="experience">Years of Experience</label>
+                        <select id="experience">
+                            <option>Select...</option>
+                            <option>0-1 years</option>
+                            <option>2-5 years</option>
+                            <option>6-10 years</option>
+                            <option>10+ years</option>
+                        </select>
+                    </div>
+                    <div class="form-field">
+                        <label for="startDate">Available Start Date</label>
+                        <input type="date" id="startDate">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <h3>Additional Information</h3>
+                <div class="form-row">
+                    <div class="form-field">
+                        <label for="skills">Key Skills</label>
+                        <textarea id="skills" rows="3" placeholder="JavaScript, Python, React, Node.js..."></textarea>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-field">
+                        <label for="comments">Additional Comments</label>
+                        <textarea id="comments" rows="4" placeholder="Any additional information you'd like to share..."></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <button class="generate-btn" onclick="generatePDF()">
+            🚀 Generate Placeholder PDF
+        </button>
+    </div>
+
+    <script>
+        let currentFormType = 'employment';
+        
+        function selectFormType(type) {
+            currentFormType = type;
+            
+            // Update active button
+            document.querySelectorAll('.form-type-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Here you could switch between different form layouts
+            // For now, we'll keep the employment form as the main example
+        }
+        
+        function generatePDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            // Set document properties
+            doc.setProperties({
+                title: 'Placeholder PDF - Auto Populate Enhanced',
+                subject: 'Form Template',
+                author: 'PDF Auto-Populate Enhanced',
+                creator: 'PDF Generator Tool'
+            });
+            
+            // Add header
+            doc.setFontSize(24);
+            doc.setTextColor(59, 130, 246);
+            doc.text('Employment Application Form', 20, 30);
+            
+            // Add subtitle
+            doc.setFontSize(12);
+            doc.setTextColor(107, 114, 128);
+            doc.text('Placeholder Template for Auto-Population Testing', 20, 40);
+            
+            // Add horizontal line
+            doc.setDrawColor(229, 231, 235);
+            doc.line(20, 45, 190, 45);
+            
+            let yPos = 60;
+            
+            // Personal Information Section
+            doc.setFontSize(16);
+            doc.setTextColor(59, 130, 246);
+            doc.text('Personal Information', 20, yPos);
+            yPos += 15;
+            
+            doc.setFontSize(11);
+            doc.setTextColor(0, 0, 0);
+            
+            // Form fields with placeholders
+            const fields = [
+                { label: 'First Name:', placeholder: '________________________' },
+                { label: 'Last Name:', placeholder: '________________________' },
+                { label: 'Email Address:', placeholder: '________________________________________' },
+                { label: 'Phone Number:', placeholder: '________________________' },
+                { label: 'Date of Birth:', placeholder: '____________' },
+                { label: 'Social Security Number:', placeholder: '___-__-____' }
+            ];
+            
+            fields.forEach(field => {
+                doc.text(field.label, 20, yPos);
+                doc.text(field.placeholder, 70, yPos);
+                yPos += 12;
+            });
+            
+            yPos += 10;
+            
+            // Address Section
+            doc.setFontSize(16);
+            doc.setTextColor(59, 130, 246);
+            doc.text('Address Information', 20, yPos);
+            yPos += 15;
+            
+            doc.setFontSize(11);
+            doc.setTextColor(0, 0, 0);
+            
+            const addressFields = [
+                { label: 'Street Address:', placeholder: '________________________________________' },
+                { label: 'City:', placeholder: '________________________' },
+                { label: 'State:', placeholder: '____________' },
+                { label: 'ZIP Code:', placeholder: '____________' }
+            ];
+            
+            addressFields.forEach(field => {
+                doc.text(field.label, 20, yPos);
+                doc.text(field.placeholder, 70, yPos);
+                yPos += 12;
+            });
+            
+            // Add new page if needed
+            if (yPos > 250) {
+                doc.addPage();
+                yPos = 30;
+            }
+            
+            yPos += 10;
+            
+            // Employment Information Section
+            doc.setFontSize(16);
+            doc.setTextColor(59, 130, 246);
+            doc.text('Employment Information', 20, yPos);
+            yPos += 15;
+            
+            doc.setFontSize(11);
+            doc.setTextColor(0, 0, 0);
+            
+            const employmentFields = [
+                { label: 'Desired Position:', placeholder: '________________________________________' },
+                { label: 'Expected Salary:', placeholder: '$________________' },
+                { label: 'Years of Experience:', placeholder: '____________' },
+                { label: 'Available Start Date:', placeholder: '____________' },
+                { label: 'Employment Type:', placeholder: '☐ Full-time  ☐ Part-time  ☐ Contract' }
+            ];
+            
+            employmentFields.forEach(field => {
+                doc.text(field.label, 20, yPos);
+                if (field.label.includes('Employment Type')) {
+                    doc.text(field.placeholder, 20, yPos + 8);
+                    yPos += 16;
+                } else {
+                    doc.text(field.placeholder, 70, yPos);
+                    yPos += 12;
+                }
+            });
+            
+            yPos += 10;
+            
+            // Skills Section
+            doc.setFontSize(16);
+            doc.setTextColor(59, 130, 246);
+            doc.text('Skills & Qualifications', 20, yPos);
+            yPos += 15;
+            
+            doc.setFontSize(11);
+            doc.setTextColor(0, 0, 0);
+            doc.text('List your key skills and qualifications:', 20, yPos);
+            yPos += 10;
+            
+            // Add multiple lines for skills
+            for (let i = 0; i < 5; i++) {
+                doc.text('________________________________________________', 20, yPos);
+                yPos += 12;
+            }
+            
+            // Add checkboxes section
+            yPos += 10;
+            doc.setFontSize(16);
+            doc.setTextColor(59, 130, 246);
+            doc.text('Additional Questions', 20, yPos);
+            yPos += 15;
+            
+            doc.setFontSize(11);
+            doc.setTextColor(0, 0, 0);
+            
+            const checkboxQuestions = [
+                'Are you legally authorized to work in the United States?',
+                'Do you have reliable transportation to work?',
+                'Are you willing to work overtime if required?',
+                'Have you ever been convicted of a felony?'
+            ];
+            
+            checkboxQuestions.forEach(question => {
+                doc.text('☐ Yes  ☐ No    ' + question, 20, yPos);
+                yPos += 12;
+            });
+            
+            // Add signature section
+            yPos += 20;
+            doc.text('Applicant Signature: ________________________________  Date: ____________', 20, yPos);
+            
+            // Add footer
+            doc.setFontSize(8);
+            doc.setTextColor(156, 163, 175);
+            doc.text('Generated by PDF Auto-Populate Enhanced - Placeholder Template', 20, 280);
+            
+            // Save the PDF
+            doc.save('placeholder-form.pdf');
+            
+            // Show success message
+            alert('Placeholder PDF generated successfully! This file can be used for testing your auto-populate functionality.');
+        }
+        
+        // Auto-generate PDF on page load for immediate download
+        window.addEventListener('load', function() {
+            // Optional: Auto-generate after a short delay
+            // setTimeout(() => generatePDF(), 1000);
+        });
+    </script>
+</body>
+</html>

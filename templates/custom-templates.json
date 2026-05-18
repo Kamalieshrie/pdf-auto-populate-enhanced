@@ -1,0 +1,599 @@
+{
+  "version": "1.0",
+  "templateName": "Custom PDF Templates",
+  "description": "User-defined custom templates for various document types",
+  "lastUpdated": "2024-01-15",
+  "customTemplates": [
+    {
+      "id": "ct-001",
+      "name": "Employment Verification Form",
+      "description": "Custom template for employment verification documents",
+      "category": "verification",
+      "createdBy": "user@example.com",
+      "createdDate": "2024-01-10",
+      "isActive": true,
+      "pdfTemplate": "employment-verification-custom.pdf",
+      "fields": {
+        "employee": {
+          "employeeName": {
+            "pdfFieldName": "emp_name",
+            "type": "text",
+            "required": true,
+            "label": "Employee Full Name",
+            "coordinates": { "x": 150, "y": 120, "width": 200, "height": 20 },
+            "validation": {
+              "minLength": 2,
+              "maxLength": 100
+            }
+          },
+          "employeeId": {
+            "pdfFieldName": "emp_id",
+            "type": "text",
+            "required": true,
+            "label": "Employee ID",
+            "coordinates": { "x": 400, "y": 120, "width": 100, "height": 20 },
+            "validation": {
+              "pattern": "^EMP\\d{4,6}$"
+            }
+          },
+          "department": {
+            "pdfFieldName": "emp_department",
+            "type": "select",
+            "required": true,
+            "label": "Department",
+            "options": [
+              "Human Resources",
+              "Finance",
+              "Marketing",
+              "Operations",
+              "IT",
+              "Sales",
+              "Customer Service"
+            ],
+            "coordinates": { "x": 150, "y": 160, "width": 150, "height": 20 }
+          },
+          "position": {
+            "pdfFieldName": "emp_position",
+            "type": "text",
+            "required": true,
+            "label": "Job Title",
+            "coordinates": { "x": 350, "y": 160, "width": 200, "height": 20 }
+          },
+          "startDate": {
+            "pdfFieldName": "emp_start_date",
+            "type": "date",
+            "required": true,
+            "label": "Employment Start Date",
+            "coordinates": { "x": 150, "y": 200, "width": 120, "height": 20 }
+          },
+          "currentSalary": {
+            "pdfFieldName": "emp_current_salary",
+            "type": "currency",
+            "required": false,
+            "label": "Current Annual Salary",
+            "coordinates": { "x": 300, "y": 200, "width": 120, "height": 20 }
+          },
+          "employmentStatus": {
+            "pdfFieldName": "emp_status",
+            "type": "select",
+            "required": true,
+            "label": "Employment Status",
+            "options": [
+              "Active Full-time",
+              "Active Part-time",
+              "Contract",
+              "Terminated",
+              "On Leave"
+            ],
+            "coordinates": { "x": 450, "y": 200, "width": 120, "height": 20 }
+          }
+        },
+        "verification": {
+          "verificationPurpose": {
+            "pdfFieldName": "verification_purpose",
+            "type": "textarea",
+            "required": true,
+            "label": "Purpose of Verification",
+            "coordinates": { "x": 150, "y": 260, "width": 400, "height": 60 }
+          },
+          "requestedBy": {
+            "pdfFieldName": "requested_by",
+            "type": "text",
+            "required": true,
+            "label": "Requested By (Organization)",
+            "coordinates": { "x": 150, "y": 340, "width": 200, "height": 20 }
+          },
+          "contactInfo": {
+            "pdfFieldName": "contact_info",
+            "type": "text",
+            "required": false,
+            "label": "Contact Information",
+            "coordinates": { "x": 370, "y": 340, "width": 180, "height": 20 }
+          },
+          "verificationDate": {
+            "pdfFieldName": "verification_date",
+            "type": "date",
+            "required": true,
+            "label": "Verification Date",
+            "coordinates": { "x": 150, "y": 380, "width": 120, "height": 20 }
+          },
+          "hrSignature": {
+            "pdfFieldName": "hr_signature",
+            "type": "signature",
+            "required": true,
+            "label": "HR Representative Signature",
+            "coordinates": { "x": 150, "y": 420, "width": 200, "height": 50 }
+          },
+          "hrName": {
+            "pdfFieldName": "hr_name",
+            "type": "text",
+            "required": true,
+            "label": "HR Representative Name",
+            "coordinates": { "x": 370, "y": 420, "width": 180, "height": 20 }
+          },
+          "hrTitle": {
+            "pdfFieldName": "hr_title",
+            "type": "text",
+            "required": true,
+            "label": "HR Title",
+            "coordinates": { "x": 370, "y": 450, "width": 180, "height": 20 }
+          }
+        }
+      }
+    },
+    {
+      "id": "ct-002",
+      "name": "Event Registration Form",
+      "description": "Custom template for event registrations and conferences",
+      "category": "events",
+      "createdBy": "events@company.com",
+      "createdDate": "2024-01-12",
+      "isActive": true,
+      "pdfTemplate": "event-registration-custom.pdf",
+      "fields": {
+        "attendee": {
+          "firstName": {
+            "pdfFieldName": "attendee_first_name",
+            "type": "text",
+            "required": true,
+            "label": "First Name",
+            "coordinates": { "x": 120, "y": 100, "width": 150, "height": 20 }
+          },
+          "lastName": {
+            "pdfFieldName": "attendee_last_name",
+            "type": "text",
+            "required": true,
+            "label": "Last Name",
+            "coordinates": { "x": 290, "y": 100, "width": 150, "height": 20 }
+          },
+          "email": {
+            "pdfFieldName": "attendee_email",
+            "type": "email",
+            "required": true,
+            "label": "Email Address",
+            "coordinates": { "x": 460, "y": 100, "width": 180, "height": 20 }
+          },
+          "phone": {
+            "pdfFieldName": "attendee_phone",
+            "type": "tel",
+            "required": true,
+            "label": "Phone Number",
+            "coordinates": { "x": 120, "y": 140, "width": 150, "height": 20 }
+          },
+          "company": {
+            "pdfFieldName": "attendee_company",
+            "type": "text",
+            "required": false,
+            "label": "Company/Organization",
+            "coordinates": { "x": 290, "y": 140, "width": 200, "height": 20 }
+          },
+          "jobTitle": {
+            "pdfFieldName": "attendee_job_title",
+            "type": "text",
+            "required": false,
+            "label": "Job Title",
+            "coordinates": { "x": 510, "y": 140, "width": 130, "height": 20 }
+          }
+        },
+        "event": {
+          "eventChoice": {
+            "pdfFieldName": "event_choice",
+            "type": "select",
+            "required": true,
+            "label": "Event Selection",
+            "options": [
+              "Annual Conference 2024",
+              "Leadership Summit",
+              "Tech Innovation Day",
+              "Networking Mixer",
+              "Workshop Series"
+            ],
+            "coordinates": { "x": 120, "y": 200, "width": 200, "height": 20 }
+          },
+          "sessionPreferences": {
+            "pdfFieldName": "session_preferences",
+            "type": "multiselect",
+            "required": false,
+            "label": "Session Preferences",
+            "options": [
+              "Morning Sessions",
+              "Afternoon Sessions",
+              "Workshops",
+              "Networking",
+              "Panel Discussions",
+              "Keynote Speeches"
+            ],
+            "coordinates": { "x": 340, "y": 200, "width": 300, "height": 80 }
+          },
+          "dietaryRestrictions": {
+            "pdfFieldName": "dietary_restrictions",
+            "type": "textarea",
+            "required": false,
+            "label": "Dietary Restrictions/Allergies",
+            "coordinates": { "x": 120, "y": 300, "width": 520, "height": 40 }
+          },
+          "accessibilityNeeds": {
+            "pdfFieldName": "accessibility_needs",
+            "type": "textarea",
+            "required": false,
+            "label": "Accessibility Requirements",
+            "coordinates": { "x": 120, "y": 360, "width": 520, "height": 40 }
+          }
+        },
+        "payment": {
+          "registrationType": {
+            "pdfFieldName": "registration_type",
+            "type": "select",
+            "required": true,
+            "label": "Registration Type",
+            "options": [
+              "Early Bird - $299",
+              "Regular - $399",
+              "Student - $99",
+              "Group (5+) - $250 each",
+              "VIP - $599"
+            ],
+            "coordinates": { "x": 120, "y": 420, "width": 200, "height": 20 }
+          },
+          "paymentMethod": {
+            "pdfFieldName": "payment_method",
+            "type": "select",
+            "required": true,
+            "label": "Payment Method",
+            "options": [
+              "Credit Card",
+              "Bank Transfer",
+              "Company Purchase Order",
+              "PayPal",
+              "Check"
+            ],
+            "coordinates": { "x": 340, "y": 420, "width": 150, "height": 20 }
+          },
+          "emergencyContact": {
+            "pdfFieldName": "emergency_contact",
+            "type": "text",
+            "required": false,
+            "label": "Emergency Contact",
+            "coordinates": { "x": 120, "y": 470, "width": 200, "height": 20 }
+          },
+          "emergencyPhone": {
+            "pdfFieldName": "emergency_phone",
+            "type": "tel",
+            "required": false,
+            "label": "Emergency Contact Phone",
+            "coordinates": { "x": 340, "y": 470, "width": 150, "height": 20 }
+          }
+        },
+        "agreement": {
+          "termsAccepted": {
+            "pdfFieldName": "terms_accepted",
+            "type": "checkbox",
+            "required": true,
+            "label": "I agree to the terms and conditions",
+            "coordinates": { "x": 120, "y": 520, "width": 15, "height": 15 }
+          },
+          "marketingConsent": {
+            "pdfFieldName": "marketing_consent",
+            "type": "checkbox",
+            "required": false,
+            "label": "I consent to receive marketing communications",
+            "coordinates": { "x": 120, "y": 545, "width": 15, "height": 15 }
+          },
+          "photoConsent": {
+            "pdfFieldName": "photo_consent",
+            "type": "checkbox",
+            "required": false,
+            "label": "I consent to photography/videography at the event",
+            "coordinates": { "x": 120, "y": 570, "width": 15, "height": 15 }
+          },
+          "attendeeSignature": {
+            "pdfFieldName": "attendee_signature",
+            "type": "signature",
+            "required": true,
+            "label": "Signature",
+            "coordinates": { "x": 120, "y": 610, "width": 200, "height": 50 }
+          },
+          "signatureDate": {
+            "pdfFieldName": "signature_date",
+            "type": "date",
+            "required": true,
+            "label": "Date",
+            "coordinates": { "x": 340, "y": 630, "width": 120, "height": 20 }
+          }
+        }
+      }
+    },
+    {
+      "id": "ct-003",
+      "name": "Vendor Agreement Form",
+      "description": "Custom template for vendor onboarding and agreements",
+      "category": "business",
+      "createdBy": "procurement@company.com",
+      "createdDate": "2024-01-08",
+      "isActive": true,
+      "pdfTemplate": "vendor-agreement-custom.pdf",
+      "fields": {
+        "vendor": {
+          "companyName": {
+            "pdfFieldName": "vendor_company_name",
+            "type": "text",
+            "required": true,
+            "label": "Company Name",
+            "coordinates": { "x": 150, "y": 100, "width": 250, "height": 20 }
+          },
+          "businessType": {
+            "pdfFieldName": "vendor_business_type",
+            "type": "select",
+            "required": true,
+            "label": "Business Type",
+            "options": [
+              "Corporation",
+              "LLC",
+              "Partnership",
+              "Sole Proprietorship",
+              "Non-Profit",
+              "Government Agency"
+            ],
+            "coordinates": { "x": 420, "y": 100, "width": 150, "height": 20 }
+          },
+          "taxId": {
+            "pdfFieldName": "vendor_tax_id",
+            "type": "text",
+            "required": true,
+            "label": "Tax ID/EIN",
+            "coordinates": { "x": 150, "y": 140, "width": 150, "height": 20 }
+          },
+          "businessAddress": {
+            "pdfFieldName": "vendor_business_address",
+            "type": "textarea",
+            "required": true,
+            "label": "Business Address",
+            "coordinates": { "x": 320, "y": 140, "width": 250, "height": 60 }
+          },
+          "primaryContact": {
+            "pdfFieldName": "vendor_primary_contact",
+            "type": "text",
+            "required": true,
+            "label": "Primary Contact Name",
+            "coordinates": { "x": 150, "y": 220, "width": 200, "height": 20 }
+          },
+          "contactTitle": {
+            "pdfFieldName": "vendor_contact_title",
+            "type": "text",
+            "required": true,
+            "label": "Contact Title",
+            "coordinates": { "x": 370, "y": 220, "width": 150, "height": 20 }
+          },
+          "contactEmail": {
+            "pdfFieldName": "vendor_contact_email",
+            "type": "email",
+            "required": true,
+            "label": "Contact Email",
+            "coordinates": { "x": 150, "y": 260, "width": 180, "height": 20 }
+          },
+          "contactPhone": {
+            "pdfFieldName": "vendor_contact_phone",
+            "type": "tel",
+            "required": true,
+            "label": "Contact Phone",
+            "coordinates": { "x": 350, "y": 260, "width": 150, "height": 20 }
+          }
+        },
+        "services": {
+          "serviceCategory": {
+            "pdfFieldName": "service_category",
+            "type": "multiselect",
+            "required": true,
+            "label": "Service Categories",
+            "options": [
+              "IT Services",
+              "Consulting",
+              "Manufacturing",
+              "Professional Services",
+              "Maintenance & Repair",
+              "Transportation",
+              "Marketing & Advertising",
+              "Office Supplies",
+              "Equipment Rental",
+              "Other"
+            ],
+            "coordinates": { "x": 150, "y": 320, "width": 420, "height": 80 }
+          },
+          "serviceDescription": {
+            "pdfFieldName": "service_description",
+            "type": "textarea",
+            "required": true,
+            "label": "Detailed Service Description",
+            "coordinates": { "x": 150, "y": 420, "width": 420, "height": 80 }
+          },
+          "serviceArea": {
+            "pdfFieldName": "service_area",
+            "type": "text",
+            "required": false,
+            "label": "Service Area/Geographic Coverage",
+            "coordinates": { "x": 150, "y": 520, "width": 300, "height": 20 }
+          }
+        },
+        "financial": {
+          "paymentTerms": {
+            "pdfFieldName": "payment_terms",
+            "type": "select",
+            "required": true,
+            "label": "Preferred Payment Terms",
+            "options": [
+              "Net 15",
+              "Net 30",
+              "Net 45",
+              "Net 60",
+              "COD",
+              "Prepayment Required"
+            ],
+            "coordinates": { "x": 150, "y": 570, "width": 150, "height": 20 }
+          },
+          "bankingInfo": {
+            "pdfFieldName": "banking_info",
+            "type": "textarea",
+            "required": false,
+            "label": "Banking Information (for ACH payments)",
+            "coordinates": { "x": 320, "y": 570, "width": 250, "height": 60 }
+          },
+          "insuranceAmount": {
+            "pdfFieldName": "insurance_amount",
+            "type": "currency",
+            "required": false,
+            "label": "General Liability Insurance Amount",
+            "coordinates": { "x": 150, "y": 650, "width": 150, "height": 20 }
+          },
+          "bondingCapacity": {
+            "pdfFieldName": "bonding_capacity",
+            "type": "currency",
+            "required": false,
+            "label": "Bonding Capacity",
+            "coordinates": { "x": 320, "y": 650, "width": 150, "height": 20 }
+          }
+        },
+        "compliance": {
+          "minorityBusiness": {
+            "pdfFieldName": "minority_business",
+            "type": "checkbox",
+            "required": false,
+            "label": "Minority-Owned Business",
+            "coordinates": { "x": 150, "y": 700, "width": 15, "height": 15 }
+          },
+          "womanBusiness": {
+            "pdfFieldName": "woman_business",
+            "type": "checkbox",
+            "required": false,
+            "label": "Woman-Owned Business",
+            "coordinates": { "x": 300, "y": 700, "width": 15, "height": 15 }
+          },
+          "veteranBusiness": {
+            "pdfFieldName": "veteran_business",
+            "type": "checkbox",
+            "required": false,
+            "label": "Veteran-Owned Business",
+            "coordinates": { "x": 450, "y": 700, "width": 15, "height": 15 }
+          },
+          "backgroundCheckConsent": {
+            "pdfFieldName": "background_check_consent",
+            "type": "checkbox",
+            "required": true,
+            "label": "Consent to background check",
+            "coordinates": { "x": 150, "y": 730, "width": 15, "height": 15 }
+          },
+          "agreementSignature": {
+            "pdfFieldName": "agreement_signature",
+            "type": "signature",
+            "required": true,
+            "label": "Authorized Signature",
+            "coordinates": { "x": 150, "y": 770, "width": 200, "height": 50 }
+          },
+          "agreementDate": {
+            "pdfFieldName": "agreement_date",
+            "type": "date",
+            "required": true,
+            "label": "Date",
+            "coordinates": { "x": 370, "y": 790, "width": 120, "height": 20 }
+          }
+        }
+      }
+    }
+  ],
+  "templateCategories": [
+    {
+      "id": "verification",
+      "name": "Verification Documents",
+      "description": "Employment, identity, and other verification forms",
+      "icon": "shield",
+      "color": "#3B82F6"
+    },
+    {
+      "id": "events",
+      "name": "Event Management",
+      "description": "Registration, attendance, and event-related forms",
+      "icon": "calendar",
+      "color": "#10B981"
+    },
+    {
+      "id": "business",
+      "name": "Business Operations",
+      "description": "Vendor agreements, contracts, and business forms",
+      "icon": "briefcase",
+      "color": "#F59E0B"
+    },
+    {
+      "id": "educational",
+      "name": "Educational Forms",
+      "description": "Academic, training, and educational documents",
+      "icon": "bookOpen",
+      "color": "#8B5CF6"
+    },
+    {
+      "id": "healthcare",
+      "name": "Healthcare Forms",
+      "description": "Medical, insurance, and healthcare-related documents",
+      "icon": "heart",
+      "color": "#EF4444"
+    }
+  ],
+  "templateSettings": {
+    "allowCustomFields": true,
+    "maxFieldsPerTemplate": 50,
+    "supportedFieldTypes": [
+      "text",
+      "textarea",
+      "email",
+      "tel",
+      "number",
+      "currency",
+      "date",
+      "select",
+      "multiselect",
+      "checkbox",
+      "radio",
+      "signature",
+      "file"
+    ],
+    "defaultValidation": {
+      "required": {
+        "enabled": true,
+        "message": "This field is required"
+      },
+      "minLength": {
+        "enabled": false,
+        "value": 1,
+        "message": "Minimum {value} characters required"
+      },
+      "maxLength": {
+        "enabled": false,
+        "value": 255,
+        "message": "Maximum {value} characters allowed"
+      },
+      "pattern": {
+        "enabled": false,
+        "value": "",
+        "message": "Invalid format"
+      }
+    }
+  }
+}

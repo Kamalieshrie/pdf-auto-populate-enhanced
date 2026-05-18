@@ -1,0 +1,433 @@
+/* public/css/drag-drop.css - Drag and Drop Functionality Styles */
+
+/* Drop Zone */
+.drop-zone {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+  border-radius: var(--border-radius-lg);
+}
+
+.drop-zone.active {
+  pointer-events: all;
+  background: rgba(37, 99, 235, 0.1);
+  border: 3px dashed var(--primary-color);
+  border-radius: var(--border-radius-lg);
+  backdrop-filter: blur(2px);
+}
+
+.drop-zone.drag-over {
+  background: rgba(37, 99, 235, 0.2);
+  border-color: var(--primary-hover);
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+/* PDF Canvas in Active State */
+.pdf-canvas.drag-active {
+  background: rgba(37, 99, 235, 0.05);
+  border-color: var(--primary-color);
+  transform: scale(1.01);
+}
+
+.pdf-canvas.drop-ready {
+  border-color: var(--success-color);
+  background: rgba(16, 185, 129, 0.05);
+}
+
+/* Custom Field Elements */
+.custom-field {
+  position: absolute;
+  border: 2px solid transparent;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: var(--border-radius);
+  cursor: move;
+  transition: all var(--transition-fast);
+  user-select: none;
+  min-width: 80px;
+  min-height: 30px;
+  z-index: 20;
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-2) var(--spacing-3);
+  font-size: var(--font-size-sm);
+  box-shadow: var(--shadow-sm);
+}
+
+.custom-field:hover {
+  border-color: var(--primary-color);
+  box-shadow: var(--shadow-md);
+  background: rgba(255, 255, 255, 1);
+  z-index: 25;
+}
+
+.custom-field.selected {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px var(--primary-light);
+  background: rgba(255, 255, 255, 1);
+  z-index: 30;
+}
+
+.custom-field.dragging {
+  opacity: 0.8;
+  transform: rotate(2deg);
+  z-index: var(--z-modal);
+  cursor: grabbing;
+  box-shadow: var(--shadow-xl);
+}
+
+/* Field Type Specific Styles */
+.custom-field[data-type="text"] {
+  border-left: 4px solid var(--primary-color);
+}
+
+.custom-field[data-type="textarea"] {
+  border-left: 4px solid var(--info-color);
+  min-height: 60px;
+  align-items: flex-start;
+  padding-top: var(--spacing-3);
+}
+
+.custom-field[data-type="checkbox"] {
+  border-left: 4px solid var(--success-color);
+  max-width: 200px;
+}
+
+.custom-field[data-type="radio"] {
+  border-left: 4px solid var(--warning-color);
+  max-width: 200px;
+}
+
+.custom-field[data-type="date"] {
+  border-left: 4px solid var(--accent-color);
+}
+
+.custom-field[data-type="signature"] {
+  border-left: 4px solid var(--error-color);
+  min-height: 50px;
+  min-width: 150px;
+  background: linear-gradient(45deg, rgba(239, 68, 68, 0.1), rgba(239, 68, 68, 0.05));
+}
+
+.custom-field[data-type="initial"] {
+  border-left: 4px solid var(--secondary-color);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  justify-content: center;
+  font-weight: 600;
+  background: linear-gradient(135deg, rgba(100, 116, 139, 0.1), rgba(100, 116, 139, 0.05));
+}
+
+/* Field Content */
+.field-content {
+  flex: 1;
+  pointer-events: none;
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.custom-field[data-type="initial"] .field-content {
+  text-align: center;
+  font-weight: 700;
+  color: var(--secondary-color);
+}
+
+.field-content.empty {
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.field-content.preview {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+/* Field Controls */
+.field-controls {
+  position: absolute;
+  top: -30px;
+  right: 0;
+  display: flex;
+  gap: var(--spacing-1);
+  opacity: 0;
+  visibility: hidden;
+  transition: all var(--transition-fast);
+  z-index: 35;
+}
+
+.custom-field:hover .field-controls,
+.custom-field.selected .field-controls {
+  opacity: 1;
+  visibility: visible;
+}
+
+.field-control-btn {
+  width: 24px;
+  height: 24px;
+  border: none;
+  border-radius: var(--border-radius-sm);
+  background-color: var(--surface-color);
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-xs);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-fast);
+}
+
+.field-control-btn:hover {
+  background-color: var(--primary-color);
+  color: var(--white);
+  transform: scale(1.1);
+}
+
+.field-control-btn.delete {
+  background-color: var(--error-color);
+  color: var(--white);
+}
+
+.field-control-btn.delete:hover {
+  background-color: #dc2626;
+}
+
+/* Resize Handles */
+.resize-handles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.custom-field:hover .resize-handles,
+.custom-field.selected .resize-handles {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.resize-handle {
+  position: absolute;
+  background-color: var(--primary-color);
+  border: 1px solid var(--white);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  cursor: nw-resize;
+  z-index: 40;
+}
+
+.resize-handle.nw { top: -4px; left: -4px; cursor: nw-resize; }
+.resize-handle.ne { top: -4px; right: -4px; cursor: ne-resize; }
+.resize-handle.sw { bottom: -4px; left: -4px; cursor: sw-resize; }
+.resize-handle.se { bottom: -4px; right: -4px; cursor: se-resize; }
+.resize-handle.n { top: -4px; left: 50%; transform: translateX(-50%); cursor: n-resize; }
+.resize-handle.s { bottom: -4px; left: 50%; transform: translateX(-50%); cursor: s-resize; }
+.resize-handle.w { left: -4px; top: 50%; transform: translateY(-50%); cursor: w-resize; }
+.resize-handle.e { right: -4px; top: 50%; transform: translateY(-50%); cursor: e-resize; }
+
+/* Field Ghost (Preview during drag) */
+.field-ghost {
+  position: fixed;
+  pointer-events: none;
+  z-index: var(--z-modal);
+  opacity: 0.8;
+  transform: rotate(5deg);
+  background: var(--surface-color);
+  border: 2px dashed var(--primary-color);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-2) var(--spacing-3);
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  box-shadow: var(--shadow-xl);
+  backdrop-filter: blur(4px);
+}
+
+/* Drop Indicators */
+.drop-indicator {
+  position: absolute;
+  width: 2px;
+  background-color: var(--primary-color);
+  border-radius: 1px;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+  z-index: 15;
+}
+
+.drop-indicator.active {
+  opacity: 1;
+  animation: dropIndicatorPulse 1s infinite;
+}
+
+@keyframes dropIndicatorPulse {
+  0%, 100% { background-color: var(--primary-color); }
+  50% { background-color: var(--primary-hover); }
+}
+
+.drop-indicator.horizontal {
+  height: 2px;
+  width: 100px;
+}
+
+.drop-indicator.vertical {
+  width: 2px;
+  height: 100px;
+}
+
+/* Snap Grid */
+.snap-grid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 5;
+  background-image: 
+    radial-gradient(circle, var(--primary-color) 1px, transparent 1px);
+  background-size: 20px 20px;
+  transition: opacity var(--transition-fast);
+}
+
+.pdf-canvas.show-grid .snap-grid {
+  opacity: 0.3;
+}
+
+/* Selection Box */
+.selection-box {
+  position: absolute;
+  border: 2px solid var(--primary-color);
+  background: rgba(37, 99, 235, 0.1);
+  border-radius: var(--border-radius-sm);
+  pointer-events: none;
+  z-index: 25;
+  opacity: 0;
+  transition: all var(--transition-fast);
+}
+
+.selection-box.active {
+  opacity: 1;
+}
+
+/* Multi-select */
+.multi-select-active .custom-field.selected {
+  border-color: var(--warning-color);
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.3);
+}
+
+/* Field Alignment Guides */
+.alignment-guide {
+  position: absolute;
+  background-color: var(--accent-color);
+  pointer-events: none;
+  z-index: 15;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.alignment-guide.active {
+  opacity: 0.8;
+}
+
+.alignment-guide.horizontal {
+  height: 1px;
+  left: 0;
+  right: 0;
+}
+
+.alignment-guide.vertical {
+  width: 1px;
+  top: 0;
+  bottom: 0;
+}
+
+/* Context Menu */
+.context-menu {
+  position: fixed;
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-lg);
+  padding: var(--spacing-2) 0;
+  min-width: 180px;
+  z-index: var(--z-dropdown);
+  backdrop-filter: blur(8px);
+}
+
+.context-menu-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  padding: var(--spacing-2) var(--spacing-4);
+  font-size: var(--font-size-sm);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.context-menu-item:hover {
+  background-color: var(--gray-100);
+}
+
+.theme-dark .context-menu-item:hover {
+  background-color: var(--gray-700);
+}
+
+.context-menu-item i {
+  width: 16px;
+  text-align: center;
+  color: var(--text-secondary);
+}
+
+.context-menu-divider {
+  height: 1px;
+  background-color: var(--border-color);
+  margin: var(--spacing-2) 0;
+}
+
+/* Field Palette Item Dragging */
+.field-palette-item.dragging {
+  opacity: 0.5;
+  transform: scale(0.95);
+}
+
+/* PDF Canvas States */
+.pdf-canvas.selecting {
+  cursor: crosshair;
+}
+
+.pdf-canvas.moving {
+  cursor: move;
+}
+
+.pdf-canvas.resizing {
+  cursor: nw-resize;
+}
+
+/* Field Highlight */
+.custom-field.highlight {
+  animation: fieldHighlight 0.5s ease-in-out;
+}
+
+@keyframes fieldHighlight {
+  0%, 100% { box-shadow: var(--shadow-md); }
+  50% { box-shadow: 0 0 20px var(--primary-color); }
+}

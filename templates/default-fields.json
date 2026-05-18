@@ -1,0 +1,261 @@
+{
+  "version": "1.0",
+  "description": "Default field templates for PDF auto-population",
+  "defaultFields": {
+    "personal": {
+      "firstName": {
+        "type": "text",
+        "label": "First Name",
+        "required": true,
+        "validation": {
+          "minLength": 1,
+          "maxLength": 50,
+          "pattern": "^[a-zA-Z\\s]+$"
+        },
+        "placeholder": "Enter first name",
+        "defaultValue": "",
+        "fieldType": "input"
+      },
+      "lastName": {
+        "type": "text",
+        "label": "Last Name",
+        "required": true,
+        "validation": {
+          "minLength": 1,
+          "maxLength": 50,
+          "pattern": "^[a-zA-Z\\s]+$"
+        },
+        "placeholder": "Enter last name",
+        "defaultValue": "",
+        "fieldType": "input"
+      },
+      "email": {
+        "type": "email",
+        "label": "Email Address",
+        "required": true,
+        "validation": {
+          "pattern": "^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$"
+        },
+        "placeholder": "Enter email address",
+        "defaultValue": "",
+        "fieldType": "input"
+      },
+      "phone": {
+        "type": "tel",
+        "label": "Phone Number",
+        "required": false,
+        "validation": {
+          "pattern": "^[\\d\\s\\-\\(\\)\\+]+$",
+          "minLength": 10,
+          "maxLength": 15
+        },
+        "placeholder": "Enter phone number",
+        "defaultValue": "",
+        "fieldType": "input"
+      },
+      "dateOfBirth": {
+        "type": "date",
+        "label": "Date of Birth",
+        "required": false,
+        "validation": {
+          "maxDate": "today"
+        },
+        "placeholder": "Select date of birth",
+        "defaultValue": "",
+        "fieldType": "datePicker"
+      }
+    },
+    "address": {
+      "street": {
+        "type": "text",
+        "label": "Street Address",
+        "required": true,
+        "validation": {
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "placeholder": "Enter street address",
+        "defaultValue": "",
+        "fieldType": "input"
+      },
+      "city": {
+        "type": "text",
+        "label": "City",
+        "required": true,
+        "validation": {
+          "minLength": 1,
+          "maxLength": 50,
+          "pattern": "^[a-zA-Z\\s]+$"
+        },
+        "placeholder": "Enter city",
+        "defaultValue": "",
+        "fieldType": "input"
+      },
+      "state": {
+        "type": "select",
+        "label": "State/Province",
+        "required": true,
+        "options": [
+          "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado",
+          "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho",
+          "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana",
+          "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota",
+          "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada",
+          "New Hampshire", "New Jersey", "New Mexico", "New York",
+          "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon",
+          "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota",
+          "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington",
+          "West Virginia", "Wisconsin", "Wyoming"
+        ],
+        "placeholder": "Select state",
+        "defaultValue": "",
+        "fieldType": "select"
+      },
+      "zipCode": {
+        "type": "text",
+        "label": "ZIP/Postal Code",
+        "required": true,
+        "validation": {
+          "pattern": "^\\d{5}(-\\d{4})?$"
+        },
+        "placeholder": "Enter ZIP code",
+        "defaultValue": "",
+        "fieldType": "input"
+      }
+    },
+    "financial": {
+      "annualIncome": {
+        "type": "number",
+        "label": "Annual Income",
+        "required": false,
+        "validation": {
+          "min": 0,
+          "max": 10000000
+        },
+        "placeholder": "Enter annual income",
+        "defaultValue": "",
+        "fieldType": "currency"
+      },
+      "employmentStatus": {
+        "type": "select",
+        "label": "Employment Status",
+        "required": false,
+        "options": [
+          "Employed Full-time",
+          "Employed Part-time",
+          "Self-employed",
+          "Unemployed",
+          "Retired",
+          "Student",
+          "Other"
+        ],
+        "placeholder": "Select employment status",
+        "defaultValue": "",
+        "fieldType": "select"
+      },
+      "employer": {
+        "type": "text",
+        "label": "Employer",
+        "required": false,
+        "validation": {
+          "maxLength": 100
+        },
+        "placeholder": "Enter employer name",
+        "defaultValue": "",
+        "fieldType": "input"
+      }
+    },
+    "signature": {
+      "signatureDate": {
+        "type": "date",
+        "label": "Signature Date",
+        "required": true,
+        "validation": {
+          "minDate": "today",
+          "maxDate": "today+30"
+        },
+        "placeholder": "Select signature date",
+        "defaultValue": "today",
+        "fieldType": "datePicker"
+      },
+      "digitalSignature": {
+        "type": "signature",
+        "label": "Digital Signature",
+        "required": true,
+        "validation": {
+          "minPoints": 10
+        },
+        "placeholder": "Sign here",
+        "defaultValue": "",
+        "fieldType": "signaturePad"
+      },
+      "initials": {
+        "type": "signature",
+        "label": "Initials",
+        "required": false,
+        "validation": {
+          "minPoints": 5
+        },
+        "placeholder": "Initial here",
+        "defaultValue": "",
+        "fieldType": "signaturePad"
+      }
+    }
+  },
+  "fieldCategories": [
+    {
+      "id": "personal",
+      "name": "Personal Information",
+      "description": "Basic personal details",
+      "icon": "user",
+      "color": "#3B82F6"
+    },
+    {
+      "id": "address",
+      "name": "Address Information",
+      "description": "Location and contact details",
+      "icon": "mapPin",
+      "color": "#10B981"
+    },
+    {
+      "id": "financial",
+      "name": "Financial Information",
+      "description": "Income and employment details",
+      "icon": "dollarSign",
+      "color": "#F59E0B"
+    },
+    {
+      "id": "signature",
+      "name": "Signature & Authentication",
+      "description": "Digital signatures and dates",
+      "icon": "fileSignature",
+      "color": "#8B5CF6"
+    }
+  ],
+  "validationRules": {
+    "required": {
+      "message": "This field is required"
+    },
+    "minLength": {
+      "message": "Must be at least {min} characters"
+    },
+    "maxLength": {
+      "message": "Must be no more than {max} characters"
+    },
+    "pattern": {
+      "message": "Invalid format"
+    },
+    "email": {
+      "message": "Please enter a valid email address"
+    },
+    "phone": {
+      "message": "Please enter a valid phone number"
+    },
+    "currency": {
+      "message": "Please enter a valid amount"
+    },
+    "date": {
+      "message": "Please select a valid date"
+    }
+  }
+}
