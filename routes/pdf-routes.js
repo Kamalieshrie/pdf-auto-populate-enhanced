@@ -12,9 +12,9 @@ const errorHandler = require('../middleware/error-handler');
 const pdfController = require('../controllers/pdf-controller');
 
 // Models
-const Template = require('../models/Template');
-const Project = require('../models/Project');
-const Field = require('../models/Field');
+const Template = require('../models/templates');
+const Project = require('../models/project');
+const Field = require('../models/field');
 
 // Apply rate limiting and sanitization
 router.use(validation.validateRateLimit(15 * 60 * 1000, 200)); // 200 requests per 15 minutes
