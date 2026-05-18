@@ -14,7 +14,7 @@ const Project = require('../models/project');
 const Field = require('../models/field');
 
 // Apply rate limiting to all API routes
-router.use(validation.validateRateLimit(15 * 60 * 1000, 1000)); // 1000 requests per 15 minutes
+
 
 // Apply input sanitization to all routes
 router.use(validation.sanitizeInput);

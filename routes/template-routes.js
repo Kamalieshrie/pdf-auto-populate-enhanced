@@ -19,7 +19,7 @@ const Field = require('../models/field');
 const Project = require('../models/project');
 
 // Apply rate limiting and sanitization
-router.use(validation.validateRateLimit(15 * 60 * 1000, 300)); // 300 requests per 15 minutes
+
 router.use(validation.sanitizeInput);
 
 // Template Management Routes
