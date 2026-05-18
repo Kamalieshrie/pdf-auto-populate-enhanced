@@ -29,7 +29,7 @@ class Server {
     constructor() {
         this.app = express();
         this.port = process.env.PORT || 3000;
-        this.host = process.env.HOST || 'localhost';
+        this.host = process.env.HOST || '0.0.0.0';
         
         this.setupMiddleware();
         this.setupRoutes();
