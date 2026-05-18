@@ -17,7 +17,7 @@ const Project = require('../models/project');
 const Field = require('../models/field');
 
 // Apply rate limiting and sanitization
-router.use(validation.validateRateLimit(15 * 60 * 1000, 200)); // 200 requests per 15 minutes
+
 router.use(validation.sanitizeInput);
 
 // PDF Upload and Processing Routes
